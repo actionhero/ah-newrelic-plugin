@@ -20,7 +20,7 @@ exports.newrelic = function(api, next){
 
     api.newrelic._start = function(api, next){
       // load the newrelic middleware into actionhero
-      api.actions.preProcessors.push( api.newrelic.middleware );
+      api.actions.addPreProcessor( api.newrelic.middleware );
       // load the newrelic error reporter into actionhero
       api.exceptionHandlers.reporters.push( api.newrelic.errorReporter );
       // optional: ignore certain actions
