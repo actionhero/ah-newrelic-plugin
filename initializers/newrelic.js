@@ -15,6 +15,8 @@ module.exports = {
         newrelic.noticeError(err);
       }
     };
+
+    next();
   },
 
   start: function(api, next){
