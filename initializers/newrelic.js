@@ -3,12 +3,12 @@ var newrelic = require("newrelic");
 module.exports = {
   initialize: function(api, next){
     api.newrelic = {
-      middleware: function(connection, actionTemplate, next){
-        if(connection.type === 'web'){
+      middleware: function(data, next){
+        if(data.connection.type === 'web'){
           // for now, the node newrelic agent only supports HTTP requests
-          newrelic.setTransactionName(actionTemplate.name);
+          newrelic.setTransactionName(data.actionTemplate.name);
         }
-        next(connection, true);
+        next();
       },
 
       errorReporter: function(type, err, extraMessages, severity){
@@ -21,7 +21,12 @@ module.exports = {
 
   start: function(api, next){
     // load the newrelic middleware into actionhero
-    api.actions.addPreProcessor( api.newrelic.middleware );
+    api.actions.addMiddleware({
+      name: 'NewRelic Middleware',
+      global: true,
+      priority: 1000,
+      preProcessor: api.newrelic.middleware
+    });
     // load the newrelic error reporter into actionhero
     api.exceptionHandlers.reporters.push( api.newrelic.errorReporter );
     // optional: ignore certain actions
