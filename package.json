@@ -2,7 +2,7 @@
   "author": "Evan Tahler <evantahler@gmail.com>",
   "name": "ah-newrelic-plugin",
   "description": "I use newrelic in actionhero",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "homepage": "http://actionherojs.com",
   "repository": {
     "type": "git",
