@@ -11,7 +11,7 @@ module.exports = {
         next();
       },
 
-      errorReporter: function(type, err, extraMessages, severity){
+      errorReporter: function(err, type, name, objects, severity){
         newrelic.noticeError(err);
       }
     };
