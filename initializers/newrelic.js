@@ -1,36 +1,39 @@
-var newrelic = require("newrelic");
+var newrelic = require('newrelic')
 
 module.exports = {
-  initialize: function(api, next){
+  loadPriority: 1,
+  startPriority: 1,
+
+  initialize: function (api, next) {
     api.newrelic = {
-      middleware: function(data, next){
-        if(data.connection.type === 'web'){
+      middleware: function (data, next) {
+        if (data.connection.type === 'web') {
           // for now, the node newrelic agent only supports HTTP requests
-          newrelic.setTransactionName(data.actionTemplate.name);
+          newrelic.setTransactionName(data.actionTemplate.name)
         }
-        next();
+        next()
       },
 
-      errorReporter: function(err, type, name, objects, severity){
-        newrelic.noticeError(err);
+      errorReporter: function (err, type, name, objects, severity) {
+        newrelic.noticeError(err)
       }
-    };
+    }
 
-    next();
+    next()
   },
 
-  start: function(api, next){
+  start: function (api, next) {
     // load the newrelic middleware into actionhero
     api.actions.addMiddleware({
       name: 'NewRelic Middleware',
       global: true,
-      priority: 1000,
+      priority: 1,
       preProcessor: api.newrelic.middleware
-    });
+    })
     // load the newrelic error reporter into actionhero
-    api.exceptionHandlers.reporters.push( api.newrelic.errorReporter );
+    api.exceptionHandlers.reporters.push(api.newrelic.errorReporter)
     // optional: ignore certain actions
     // newrelic.setIgnoreTransaction('actionName');
-    next();
+    next()
   }
-};
+}

@@ -8,14 +8,23 @@
     "type": "git",
     "url": "git://github.com/evantahler/ah-newrelic-plugin.git"
   },
-  "keywords": ["actionherojs", "actionhero", "api", "newrelic", "new-relic", "new relic", "integration", "tracking", "server"],
+  "keywords": [
+    "actionherojs",
+    "actionhero",
+    "api",
+    "newrelic",
+    "new-relic",
+    "new relic",
+    "integration",
+    "tracking",
+    "server"
+  ],
   "engines": {
     "node": ">=0.8.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "standard": "^8.6.0"
+  },
   "devDependencies": {},
-  "optionalDependencies": {},
-  "scripts": {
-    "postinstall": "scripts/postinstall.js"
-  }
+  "optionalDependencies": {}
 }
