@@ -1,37 +1,45 @@
 var newrelic = require('newrelic')
 
 module.exports = {
-  loadPriority: 1,
   startPriority: 1,
 
-  initialize: function (api, next) {
-    api.newrelic = {
-      middleware: function (data, next) {
+  start: function (api, next) {
+    // load the newrelic action middleware into actionhero
+    api.actions.addMiddleware({
+      name: 'NewRelic Action Middleware',
+      global: true,
+      priority: 1,
+      preProcessor: (data, next) => {
         if (data.connection.type === 'web') {
           // for now, the node newrelic agent only supports HTTP requests
           newrelic.setTransactionName(data.actionTemplate.name)
+          newrelic.addCustomParameters(data.params)
         }
+        next()
+      }
+    })
+
+    api.tasks.addMiddleware({
+      name: 'NewRelic Task Middleware',
+      global: true,
+      priority: 1,
+      preProcessor: (next) => {
+        let worker = this.worker
+        newrelic.createBackgroundTransaction(worker.job.class)
         next()
       },
 
-      errorReporter: function (err, type, name, objects, severity) {
-        newrelic.noticeError(err)
+      postProcessor: (next) => {
+        newrelic.endTransaction()
+        next()
       }
-    }
-
-    next()
-  },
-
-  start: function (api, next) {
-    // load the newrelic middleware into actionhero
-    api.actions.addMiddleware({
-      name: 'NewRelic Middleware',
-      global: true,
-      priority: 1,
-      preProcessor: api.newrelic.middleware
     })
+
     // load the newrelic error reporter into actionhero
-    api.exceptionHandlers.reporters.push(api.newrelic.errorReporter)
+    api.exceptionHandlers.reporters.push((error) => {
+      newrelic.noticeError(error)
+    })
+
     // optional: ignore certain actions
     // newrelic.setIgnoreTransaction('actionName');
     next()
