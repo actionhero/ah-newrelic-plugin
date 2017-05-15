@@ -23,7 +23,8 @@ module.exports = {
       name: 'NewRelic Task Middleware',
       global: true,
       priority: 1,
-      preProcessor: (next) => {
+      // using old ES5 syntax for the correct context of 'this' for the resque worker
+      preProcessor: function(next) {
         let worker = this.worker
         newrelic.createBackgroundTransaction(worker.job.class)
         next()
