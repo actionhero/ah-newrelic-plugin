@@ -26,7 +26,7 @@ module.exports = {
       // using old ES5 syntax for the correct context of 'this' for the resque worker
       preProcessor: function(next) {
         let worker = this.worker
-        newrelic.createBackgroundTransaction(worker.job.class)
+        newrelic.startBackgroundTransaction(worker.job.class)
         next()
       },
 
