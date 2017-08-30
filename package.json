@@ -10,7 +10,7 @@
   },
   "peerDependencies": {
     "newrelic": ">=2.2.0"
-  }
+  },
   "keywords": [
     "actionherojs",
     "actionhero",
