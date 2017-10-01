@@ -1,4 +1,4 @@
-## ActionHero Transactions for New Reli
+## ActionHero Transactions for New Relic
 
 ## Notes
 - install `npm install --save ah-newrelic-plugin`

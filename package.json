@@ -2,14 +2,15 @@
   "author": "Evan Tahler <evantahler@gmail.com>",
   "name": "ah-newrelic-plugin",
   "description": "I use newrelic in actionhero",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "homepage": "http://actionherojs.com",
   "repository": {
     "type": "git",
     "url": "git://github.com/evantahler/ah-newrelic-plugin.git"
   },
   "peerDependencies": {
-    "newrelic": ">=2.2.0"
+    "newrelic": ">=2.2.0",
+    "actionhero": ">=18.0.0"
   },
   "keywords": [
     "actionherojs",
@@ -20,10 +21,12 @@
     "new relic",
     "integration",
     "tracking",
-    "server"
+    "server",
+    "apm",
+    "monitoring"
   ],
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=8.0.0"
   },
   "dependencies": {
     "standard": "^8.6.0"

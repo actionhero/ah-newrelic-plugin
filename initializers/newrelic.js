@@ -3,19 +3,18 @@ var newrelic = require('newrelic')
 module.exports = {
   startPriority: 1,
 
-  start: function (api, next) {
+  start: (api) => {
     // load the newrelic action middleware into actionhero
     api.actions.addMiddleware({
       name: 'NewRelic Action Middleware',
       global: true,
       priority: 1,
-      preProcessor: (data, next) => {
+      preProcessor: (data) => {
         if (data.connection.type === 'web') {
           // for now, the node newrelic agent only supports HTTP requests
           newrelic.setTransactionName(data.actionTemplate.name)
           newrelic.addCustomParameters(data.params)
         }
-        next()
       }
     })
 
@@ -24,10 +23,9 @@ module.exports = {
       global: true,
       priority: 1,
       // using old ES5 syntax for the correct context of 'this' for the resque worker
-      preProcessor: function(next) {
+      preProcessor: function () {
         let worker = this.worker
         newrelic.startBackgroundTransaction(worker.job.class)
-        next()
       },
 
       postProcessor: (next) => {
@@ -43,6 +41,5 @@ module.exports = {
 
     // optional: ignore certain actions
     // newrelic.setIgnoreTransaction('actionName');
-    next()
   }
 }
