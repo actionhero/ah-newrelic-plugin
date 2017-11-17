@@ -37,9 +37,8 @@ module.exports =
           newrelic.startBackgroundTransaction(worker.job.class)
         },
 
-        postProcessor: (next) => {
+        postProcessor: () => {
           newrelic.endTransaction()
-          next()
         }
       })
 
