@@ -2,11 +2,14 @@
   "author": "Evan Tahler <evantahler@gmail.com>",
   "name": "ah-newrelic-plugin",
   "description": "I use newrelic in actionhero",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "homepage": "http://actionherojs.com",
   "repository": {
     "type": "git",
     "url": "git://github.com/evantahler/ah-newrelic-plugin.git"
+  },
+  "scripts": {
+    "test": "standard"
   },
   "peerDependencies": {
     "newrelic": ">=2.2.0",
@@ -28,9 +31,9 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "dependencies": {
-    "standard": "^11.0.0"
+  "dependencies": {},
+  "devDependencies": {
+    "standard": "^12.0.1"
   },
-  "devDependencies": {},
   "optionalDependencies": {}
 }
