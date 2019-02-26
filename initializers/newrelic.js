@@ -21,7 +21,7 @@ module.exports = class NewRelicInitializer extends Initializer {
         if (data.connection.type === 'web') {
           // for now, the node newrelic agent only supports HTTP requests
           newrelic.setTransactionName(data.actionTemplate.name)
-          newrelic.addCustomParameters(data.params)
+          newrelic.addCustomAttributes(data.params)
         }
       }
     })
