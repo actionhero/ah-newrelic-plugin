@@ -32,7 +32,7 @@ module.exports = class NewRelicInitializer extends Initializer {
       priority: 1,
       // using old ES5 syntax for the correct context of 'this' for the resque worker
       preProcessor: function () {
-        let worker = this.worker
+        const worker = this.worker
         newrelic.startBackgroundTransaction(worker.job.class)
       },
 
