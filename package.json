@@ -33,7 +33,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "standard": "^14.1.0"
+    "standard": "^16.0.3"
   },
   "optionalDependencies": {}
 }
